@@ -16,13 +16,14 @@ import numpy as np
 import seaborn as sns
 import torch
 from sklearn.linear_model import LinearRegression
+from helper import blue,cinnabar,celeste,mint
 
 if __name__ == '__main__':
 
     # Create some dummy data: we establish a linear relationship between x and y
     n = 500
     noise = .1
-    a = np.random.rand()
+    a = 2*(np.random.rand()-.5)
     b = np.random.rand()
 
     x = np.linspace(start=0, stop=1, num=n)
@@ -36,11 +37,6 @@ if __name__ == '__main__':
     mse_actual = np.sum(np.power(y - y_noisy, 2)) / len(y)
 
     # Visualize
-    blue = '#3398CD'
-    mint = '#EFF7F6'
-    celeste = '#B2F7EF'
-    cinnabar = '#E94F37'
-
     plt.scatter(x, y_noisy, color=celeste, label='Measurements')
     plt.plot(x, y, color=blue, lw=3, label='Underlying')
     plt.legend()
@@ -63,7 +59,6 @@ if __name__ == '__main__':
         preds.append(pred.detach().numpy()[0])
 
     # Visualize
-    colors = sns.color_palette('pastel')
     sns.despine(left=True, bottom=True)
     plt.scatter(x, y_noisy, edgecolors='none', color=celeste, label='Measurements', alpha=.7)
     plt.plot(shuffled_inputs, preds, color=blue, label='Predictions', alpha=.7)
@@ -108,11 +103,9 @@ if __name__ == '__main__':
     line, = ax.plot([], [], color=cinnabar, linewidth=3, label='Predictions')
     plt.legend()
 
-
     def init():
         line.set_data([], [])
         return line,
-
 
     def plot_epoch(i):
 
@@ -121,7 +114,6 @@ if __name__ == '__main__':
         handles, labels = ax.get_legend_handles_labels()
         ax.legend(handles, [labels[0], f'{labels[1]} - epoch {i + 1}', labels[2]])
         return line
-
 
     animation = ani.FuncAnimation(fig, plot_epoch, init_func=init, frames=500, interval=1)
     animation.save(os.path.join('visuals', 'linear_regression_SGD.gif'), writer='ffmpeg')

@@ -19,7 +19,12 @@ DATA_DIR = join(Path(os.path.dirname(os.path.abspath(__file__))).parents[1], 'da
 LOG_DIR = join(Path(os.path.dirname(os.path.abspath(__file__))).parents[1], 'logs')
 TENSOR_NET_TYPES = ['cp', 'cpd', 'canonical', 'tucker', 'train', 'tensor-train', 'tt']
 KUL_PAL = ['#FF7251', '#C58B85', '#8CA5B8', '#52BEEC']
-KUL_PAL2 = ['#FF7251', '#E67D67', '#CE887D','#B59393','#9C9DAA','#83A8C0','#6BB3D6','#52BEEC']
+KUL_PAL2 = ['#FF7251', '#E67D67', '#CE887D', '#B59393', '#9C9DAA', '#83A8C0', '#6BB3D6', '#52BEEC']
+blue = '#3398CD'
+mint = '#EFF7F6'
+celeste = '#B2F7EF'
+cinnabar = '#E94F37'
+
 
 # Set parameters
 def set_params(verbosity: int = None, timestamped: bool = None, data_dir: str = None, log_dir: str = None):
@@ -60,7 +65,7 @@ def hi(title=None, **params):
 
     # Set directories
     if not os.path.exists(DATA_DIR) or not os.path.exists(LOG_DIR):
-         set_dir(DATA_DIR, LOG_DIR)
+        set_dir(DATA_DIR, LOG_DIR)
 
     # Set seed
     seed_everything(616, workers=True)
